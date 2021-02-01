@@ -10,24 +10,29 @@
 	<li>1</li>
 </ul>
 <script>
-	var grades ={
-		'list': {'egoing': 10, 'test':20},
-		'temp_func': (function (arr){
-			alert(this.list[arr])
-		}),
-0
-		bb:{'a':20}
-	}
+var funcThis = null;
 
-<<<<<<< HEAD
-master
-=======
-tttttest2
->>>>>>> test
-	var test = {
-		dateFormat: 'yy-mm-dd'
-	}
+function Func(){
+	funcThis = this;
+}
 
+var o1 = Func();
+if(funcThis === window){
+	document.write('window </br>');
+}
+
+var o2 = new Func();
+if(funcThis === o2){
+	document.write('o2 </br>');
+}
+
+var o1 = Func();
+if(funcThis === window){
+	document.write('window </br>');
+}
+if(funcThis === o2){
+	document.write('o2 </br>');
+}
 </script>
 </body>
-</html>
+</html``>

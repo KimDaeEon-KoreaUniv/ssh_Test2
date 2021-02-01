@@ -1,0 +1,66 @@
+자바 스크립트 다시볼 사항들
+
+자바스크립트는 함수 안에서만 지역변수가 유효하다. 다른 언어는 블럭에서 유효한데 그것과 다르다.
+if 나 그런 곳에 있는 변수는 지역변수가 아니다.
+ex) if (true){
+    a = 10
+    b = 20
+}
+alert(a)
+이게 10으로 찍힌다.
+
+자바스크립트 함수 내 지역변수 범위
+함수가 정의될 때에 전역변수를 찾아서 적용한다.
+
+클로저
+for (var i = 0; i< 5; i++){
+	arr[i] = function(id){
+			return function(){
+				return id;
+		}
+	}(i)
+}
+보통 위와 같은 식으로 활용한다. 클로저는 C로 비유하자면 생성자와 유사하다.
+내부 함수가 생성된 시점의 외부 변수 정보를 저장하기 때문이다.
+이로 인해 arr[0]()를 하게 되면 0이 리턴이 되는 것이다. 
+
+
+생성자
+C언어 같은 경우는 생성자가 객체 내부의 함수였으나 자바는 그런 것이 아니다.
+그냥 함수에 new를 붙이면 생성자가 된다. 그리고 객체의 이름이 function으로 시작하기도 한다. 헷갈리니 잘 기억하자. 아래와 같이 Person 객체를 만든다.
+
+function Person(name){
+	this.name = name;
+	this.introduce = function(){
+		return 'My name is '+this.name;
+	}
+}
+
+var p1 = new Person('daeeon');
+console.log(p1.introduce());
+
+var p2 = new Person('hehe');
+console.log(p2.introduce());
+
+
+
+또한 new를 붙인 생성자는 자신을 가리키고 있는 변수가 this가 된다. 아래를 보자.
+var funcThis = null;
+
+function Func(){
+	funcThis = this;
+}
+
+var o1 = Func();
+if(funcThis === window){
+	document.write('window </br>');
+}
+
+var o2 = new Func();
+if(funcThis === o2){
+	document.write('o2 </br>');
+}
+
+위를 보면 o2가 출력이 되는데, 이는 o2 = new Func(); 로 인해 this에 o2가 할당되었다는 의미이다.
+이 말은 생성자는 빈 객체를 만들고, 이 객채내에서 this는 만들어진 객체를 가르킨다는 사실이다.
+맨 위에서 window가 출력되는 이유는 전역객체인 winodw가 이미 생서되어 this에 할당되어 있기 때문이다.
