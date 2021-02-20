@@ -4,35 +4,25 @@
     <script src = "welcome.js"></script>
 </head>
 <body>
-<ul>
-	<li>2</li>
-	<li>3</li>
-	<li>1</li>
-</ul>
 <script>
-var funcThis = null;
+	function Person(name){
+		this.name = name;
+	}
 
-function Func(){
-	funcThis = this;
-}
+	Person.prototype.name = null;
+	Person.prototype.introduce = function(){
+		return 'My name is ' + this.name;
+	}
 
-var o1 = Func();
-if(funcThis === window){
-	document.write('window </br>');
-}
+	function Programmer(name){
+		this.name = name;
+	}
 
-var o2 = new Func();
-if(funcThis === o2){
-	document.write('o2 </br>');
-}
+	Programmer.prototype = new Person();
 
-var o1 = Func();
-if(funcThis === window){
-	document.write('window </br>');
-}
-if(funcThis === o2){
-	document.write('o2 </br>');
-}
+	var p1 = new Programmer('egoing');
+	document.write(p1.introduce() + "<br />");
+	
 </script>
 </body>
 </html``>
